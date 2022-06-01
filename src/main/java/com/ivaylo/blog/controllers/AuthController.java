@@ -62,4 +62,10 @@ public class AuthController {
             return ResponseEntity.badRequest().body(ex.getMessage());
         }
     }
+    // Sample exception handling method
+    @ResponseStatus(value=HttpStatus.CONFLICT, reason="Data integrity violation")
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public void conflict() {
+        // Nothing to do
+    }
 }
