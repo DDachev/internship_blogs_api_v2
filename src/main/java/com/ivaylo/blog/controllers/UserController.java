@@ -20,11 +20,11 @@ import static com.ivaylo.blog.utility.ConstantVariables.*;
 @RequestMapping(path = "api/")
 public class UserController {
     @Autowired
-    private UserService userService;
+    private IUserService userService;
     @Autowired
-    private AuthService authService;
+    private IAuthService authService;
     @Autowired
-    private BlogService blogService;
+    private IBlogService blogService;
 
 
     @PostMapping(path = "{username}/add_blog")
