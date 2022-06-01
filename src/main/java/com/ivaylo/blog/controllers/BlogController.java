@@ -17,8 +17,7 @@ import java.util.Optional;
 import static com.ivaylo.blog.utility.ConstantVariables.SESSION_ID;
 
 @RestController
-@RequestMapping("api/")
-@RequiredArgsConstructor
+@RequestMapping("api/blogs")
 public class BlogController {
     @Autowired
     private BlogService blogService;
@@ -27,7 +26,7 @@ public class BlogController {
     @Autowired
     private AuthService authService;
 
-    @GetMapping(path = "blogs/blog/{id}")
+    @GetMapping(path = "/blog/{id}")
     public ResponseEntity<?> getBlog(@PathVariable("id") Long id,
                                      @RequestHeader(name = SESSION_ID, required = false) String sessionId){
         if(sessionId == null){
@@ -44,7 +43,7 @@ public class BlogController {
         }
     }
 
-    @GetMapping(path = "blogs")
+    @GetMapping(path = "/")
     public ResponseEntity<List<Blog>> getAllBlogs(@RequestHeader(name = SESSION_ID, required = false) String sessionId)
     {
         if(sessionId == null){
@@ -56,7 +55,7 @@ public class BlogController {
         return ResponseEntity.ok().body(blogService.getAllBlogs());
     }
 
-    @GetMapping(path = "blogs/{username}")
+    @GetMapping(path = "/{username}")
     public ResponseEntity<?> getUserBlogs(@PathVariable("username") String username,
                                           @RequestHeader(name = SESSION_ID, required = false) String sessionId){
         if(sessionId == null){
