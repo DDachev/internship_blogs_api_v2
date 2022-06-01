@@ -46,6 +46,19 @@ public class AuthService implements IAuthService {
         userRepository.save(user);
         return user;
     }
+    
+    // Sample refactoring - you can think which of the logic in all service classes can be move to a new methods
+    private void isExistingCustomer(User user) {
+        Optional<User> userFromDbByName = userRepository.findByUsername(user.getUsername());
+        if(userFromDbByName.isPresent()){
+            throw new IllegalStateException(format(USERNAME_ALREADY_TAKEN,user.getUsername()));
+        }
+        Optional<User> userFromDbByEmail = userRepository.findByEmail(user.getEmail());
+        if(userFromDbByEmail.isPresent()){
+            throw new IllegalStateException(format(EMAIL_ALREADY_TAKEN,user.getEmail()));
+        }
+    }
+    
     @Override
     public Optional<User> login(User user) {
         ValidationResult result = isValidNameLength()
